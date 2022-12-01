@@ -1,23 +1,23 @@
 import os
 
 def inputSplit(inputText):
-    elvList = inputText.split('\n\n')
+    elfList = inputText.split('\n\n')
     elves = []
-    for elf in elvList:
+    for elf in elfList:
         elves.append(elf.split('\n'))
     return elves
 
-def getSum(elflist):
-    elvSum = []
-    for elv in elflist:
+def getSum(elves):
+    elfSum = []
+    for elf in elves:
         sum = 0
-        for cal in elv: 
+        for cal in elf: 
             sum += int(cal)
-        elvSum.append(sum)
-    return elvSum
+        elfSum.append(sum)
+    return elfSum
 
-def getMax(elflist, number):
-    sumList = getSum(elflist)
+def getMax(elves, number):
+    sumList = getSum(elves)
     sumList.sort(reverse=True)
     return sum(sumList[0:number])
 
