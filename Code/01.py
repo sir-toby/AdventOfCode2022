@@ -16,14 +16,10 @@ def getSum(elflist):
         elvSum.append(sum)
     return elvSum
 
-def getMax(elflist):
-    sumList = getSum(elflist)
-    return max(sumList)
-
-def getMax3(elflist):
+def getMax(elflist, number):
     sumList = getSum(elflist)
     sumList.sort(reverse=True)
-    return sum(sumList[0:3])
+    return sum(sumList[0:number])
 
 ##Main part##
 
@@ -32,5 +28,5 @@ inputText = (open(os.getcwd() + '\Inputs\\' + filename, mode='r')).read()
 
 elves = inputSplit(inputText)
 
-print("Max calories on 1 elf: " + str(getMax(elves)))
-print("Max calories on 3 elves: " + str(getMax3(elves)))
+print("Max calories on 1 elf: " + str(getMax(elves, 1)))
+print("Max calories on 3 elves: " + str(getMax(elves, 3)))
