@@ -1,32 +1,21 @@
-import os
-
-def inputSplit(inputText):
-    elfList = inputText.split('\n\n')
-    elves = []
-    for elf in elfList:
-        elves.append(elf.split('\n'))
-    return elves
+from utils import imports
 
 def getSum(elves):
-    elfSum = []
+    calorySum = []
     for elf in elves:
         sum = 0
-        for cal in elf: 
-            sum += int(cal)
-        elfSum.append(sum)
-    return elfSum
+        for calory in elf: 
+            sum += int(calory)
+        calorySum.append(sum)
+    return calorySum
 
 def getMax(elves, number):
-    sumList = getSum(elves)
-    sumList.sort(reverse=True)
-    return sum(sumList[0:number])
+    calorySum = getSum(elves)
+    calorySum.sort(reverse=True)
+    return sum(calorySum[0:number])
 
 ##Main part##
-
-filename = '01 Input.txt'
-inputText = (open(os.getcwd() + '\Inputs\\' + filename, mode='r')).read()
-
-elves = inputSplit(inputText)
+elves = imports.import2d('01 Input.txt', '\n\n', '\n')
 
 print("Max calories on 1 elf: " + str(getMax(elves, 1)))
 print("Max calories on 3 elves: " + str(getMax(elves, 3)))
