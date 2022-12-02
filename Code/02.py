@@ -16,7 +16,7 @@ def transformToNumbers(game):
 
 def result(game):
     game = transformToNumbers(game)
-    #const who wins:
+    #def who wins:
     #1:1 draw
     #1:2 right
     #1:3 left
@@ -28,8 +28,8 @@ def result(game):
     #3:3 draw
     match (game[1]-game[0])%3:
         case 1: return 6+game[1] #win
-        case 0: return 3+game[1]
-        case 2: return game[1]
+        case 0: return 3+game[1] #draw
+        case 2: return game[1] #loose
 
 def result2(game):
     game = transformToNumbers(game)
