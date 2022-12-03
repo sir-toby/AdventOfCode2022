@@ -41,9 +41,8 @@ def sumOfBadges(rucksackList):
 def findGroupBadge(group):
     # finds and returns the group badge of a group of 3 elves
     for letter in group[0]:
-        if letter in group[1]:
-            if letter in group[2]:
-                return letter
+        if (letter in group[1]) and (letter in group[2]):
+            return letter
     return None
 
 
@@ -51,7 +50,7 @@ def findGroupBadge(group):
 rucksackList = imports.import1d('03 Input.txt', '\n')
 
 # Part1:
-print('Priority of Duplicate letters: ' + str(sumOfDuplicates(rucksackList)))
+print('Priority of duplicate letters: ' + str(sumOfDuplicates(rucksackList)))
 
 # Part2:
 print('Priority of elf group badges: ' + str(sumOfBadges(rucksackList)))
