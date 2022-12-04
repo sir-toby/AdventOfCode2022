@@ -15,10 +15,27 @@ def fullyContainedIn(tested, compared):
         return False
 
 
+def partialOverlap(pair):
+    if partialContainedIn(pair[0], pair[1]):
+        return True
+    else:
+        return False
+
+
+def partialContainedIn(tested, compared):
+    if (max(int(tested[0]), int(compared[0])) <= min(int(tested[1]), int(compared[1]))):
+        return True
+    else:
+        return False
+
+
 # Main
 listOfElfPairs = imports.genericImport("04 Input.txt", ["\n", ",", "-"])
-count = 0
+fullOverlapCount = 0
+partialOverlapCount = 0
 for pair in listOfElfPairs:
     if fullOverlap(pair):
-        count += 1
-print(count)
+        fullOverlapCount += 1
+    if partialOverlap(pair):
+        partialOverlapCount += 1
+print(fullOverlapCount, partialOverlapCount)
