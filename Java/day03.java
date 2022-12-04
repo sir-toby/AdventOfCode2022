@@ -9,7 +9,11 @@ public class day03 {
     public static void main(String[] args) {
         String inputFileName = "./Inputs/03 Input.txt";
         ArrayList<String> rucksackList = readFile(inputFileName);
+        part1(rucksackList);
+        //part2(rucksackList);
+    }
 
+    static void part1(ArrayList<String> rucksackList) {
         int prioSum = 0;
         for (String rucksack : rucksackList) {
             prioSum += getValue(getDuplicateLetter(rucksack));
@@ -17,6 +21,18 @@ public class day03 {
         System.out.print("Prio of duplicate letters: " + prioSum);
     }
 
+/*
+    static void part2(ArrayList<String> rucksackList) {
+        int prioSum = 0;
+        for (int i=0; i<rucksackList.size(); i+=3) {
+            String[] elfGroup = {"", "", ""};
+            for (int j=0; j<3; j++) {
+                elfGroup[j] = rucksackList.get(i+j);
+            }
+            for 
+        }
+    }
+*/
     static char getDuplicateLetter(String rucksack) {
         String comp1 = (rucksack.substring(0, (int) rucksack.length() / 2));
         String comp2 = rucksack.substring((int) rucksack.length() / 2);
@@ -25,7 +41,7 @@ public class day03 {
                 return comp1.charAt(i);
             }
         }
-        return comp1.charAt(1);
+        return comp1.charAt(1); // Unclean - try catch?
     }
 
     static int getValue(char character) {
