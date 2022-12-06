@@ -1,4 +1,3 @@
-from utils import imports
 import os
 
 
@@ -64,6 +63,6 @@ def code(crateList):
 # Main
 crateList, taskList = import05("05 Input.txt")
 
-# Perform rearrangement
+# Perform rearrangement and print
 print("CrateMover9000:", code(rearrange(crateList, taskList, True)),
       "\nCrateMover9001:", code(rearrange(crateList, taskList, True)))
