@@ -2,7 +2,7 @@ import os
 
 
 def import1d(filename, sepLevel1):
-    inputText = (open(os.getcwd() + '\Inputs\\' + filename, mode='r')).read()
+    inputText = (open(os.getcwd() + '\\Inputs\\' + filename, mode='r')).read()
     if inputText[-1] == '\n':
         inputText = inputText[0:-1]
     return inputText.split(sepLevel1)
@@ -30,7 +30,7 @@ def import3d(filename, sepLevel1, sepLevel2, sepLevel3):
 
 
 def genericImport(filename, listOfSeparators):
-    inputText = (open(os.getcwd() + '\Inputs\\' + filename, mode='r')).read()
+    inputText = (open(os.getcwd() + '\\Inputs\\' + filename, mode='r')).read()
     if inputText[-1] == '\n':
         inputText = inputText[0:-1]
     if len(listOfSeparators) == 1:
