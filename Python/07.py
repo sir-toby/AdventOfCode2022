@@ -2,12 +2,9 @@ from utils import imports
 import copy
 
 # data model:
-# folders = (folderId, size) folderId = list of path to folder
+# folders = ([folderPath], size)
 # files = (name, size, folder)
 # todo: switch from list to key/value
-
-
-#### TODO: Foldernamen sind nicht eindeutig! ####
 
 
 def createFolder(folderName, dir, folders):
