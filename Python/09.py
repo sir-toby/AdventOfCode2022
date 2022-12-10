@@ -11,6 +11,16 @@ def move(line, posHead, posTail, visitedPlaces):
     return posHead, posTail, visitedPlaces
 
 
+def move2(line, rope, visitedPlaces):
+    for i in range(int(line[1])):
+        rope[0] = moveHead(line[0], rope[0])
+        for j in range(1, len(rope), 1):
+            rope[j] = moveTail(rope[j-1], rope[j])
+        if rope[-1] not in visitedPlaces:
+            visitedPlaces.append(rope[-1])
+    return rope, visitedPlaces
+
+
 def moveHead(direction, posHead):
     match direction:
         case "U":
@@ -46,6 +56,8 @@ def sign(number):
 # Main
 instructions = imports.genericImport("09 Input.txt", ["\n", " "])
 
+# Part1:
+
 posHead = [0, 0]  # [x, y]
 posTail = [0, 0]  # [x, y]
 visitedPlaces = []
@@ -53,3 +65,14 @@ visitedPlaces = []
 for line in instructions:
     posHead, posTail, visitedPlaces = move(line, posHead, posTail, visitedPlaces)
 print(posHead, posTail, len(visitedPlaces))
+
+# Part2:
+ropeLength = 10
+rope = []
+visitedPlaces = []
+for i in range(ropeLength):
+    rope.append([0, 0])
+
+for line in instructions:
+    rope, visitedPlaces = move2(line, rope, visitedPlaces)
+print(rope, len(visitedPlaces))
