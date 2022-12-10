@@ -45,7 +45,10 @@ def genericImport(filename, listOfSeparators):
 def recursiveSplit(listToBeSplit, separatorList, i):
     returnList = []
     for item in listToBeSplit:
-        splitItem = item.split(separatorList[i])
+        if separatorList[i] == "":
+            splitItem = [*item]
+        else:
+            splitItem = item.split(separatorList[i])
         if len(separatorList) > i+1:
             splitItem = recursiveSplit(splitItem, separatorList, i+1)
         returnList.append(splitItem)
