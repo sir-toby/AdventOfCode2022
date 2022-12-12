@@ -52,15 +52,17 @@ def importMonkeyListPt2(inputFileName):
         allItems.append(items)
         allDivisors.append(testDivisor)
 
+    descriptor = 0
     for itemList in allItems:
         itemDivisorList = {}
         for i in itemList:
             newLine = {}
             for div in allDivisors:
                 newLine[div] = i % div
-            itemDivisorList[i] = newLine
+            itemDivisorList["Item"+str(descriptor)] = newLine
+            descriptor += 1
         monkeyList[allItems.index(itemList)].items = itemDivisorList
-        print(itemDivisorList)
+        # print(itemDivisorList)
 
     return monkeyList
 
@@ -76,24 +78,15 @@ def processPt1(m, monkeyList):
 
 def processPt2(m, monkeyList):
     for item in m.items:
-        item = calculateNewWorryLevel(item, m.operation)
-        monkeyList = testNewMonkey(item, m.test, m.trueTarget, m.falseTarget, monkeyList)
+        m.items[item] = calculateNewWorryLevel2(m.items[item], m.operation)
+        monkeyList = testNewMonkey2(item, m.items[item], m.test, m.trueTarget, m.falseTarget, monkeyList)
         m.itemProcessCount += 1
-    m.items = []
+    m.items = {}
     return monkeyList
 
 
 def calculateNewWorryLevel(item, operation):
-    if operation[0] != "old":
-        print("error while processing, skipping...")
-        return item
-    else:
-        a = item
-
-    if operation[2] == "old":
-        b = item
-    else:
-        b = int(operation[2])
+    a, b = determineOperands(operation, item)
     # Perform monkey operation
     match operation[1]:
         case "+":
@@ -105,8 +98,37 @@ def calculateNewWorryLevel(item, operation):
             print("Error during operation")
     # Reduce worry level
     result = int(result/3)
-
     return result
+
+
+def calculateNewWorryLevel2(divisorList, operation):
+    for divisor in divisorList:
+        a, b = determineOperands(operation, divisorList[divisor])
+        # Perform monkey operation
+        match operation[1]:
+            case "+":
+                divisorList[divisor] = int(a+b) % divisor
+            case "*":
+                divisorList[divisor] = int(a*b) % divisor
+            case __:
+                divisorList[divisor] = 0
+                print("Error during operation")
+    return divisorList
+
+
+def determineOperands(operation, item):
+    if operation[0] != "old":
+        print("error while processing, skipping...")
+        return item
+    else:
+        a = item
+
+    if operation[2] == "old":
+        b = item
+    else:
+        b = int(operation[2])
+
+    return a, b
 
 
 def testNewMonkey(item, div, mTrue, mFalse, monkeyList):
@@ -114,6 +136,14 @@ def testNewMonkey(item, div, mTrue, mFalse, monkeyList):
         monkeyList[mTrue].items.append(item)
     else:
         monkeyList[mFalse].items.append(item)
+    return monkeyList
+
+
+def testNewMonkey2(item, divList, div, mTrue, mFalse, monkeyList):
+    if divList[div] == 0:
+        monkeyList[mTrue].items[item] = divList
+    else:
+        monkeyList[mFalse].items[item] = divList
     return monkeyList
 
 
@@ -133,15 +163,19 @@ def part1(fileName, numberOfCycles):
     print(productOfHighest(2, monkeyList))
     return
 
- def part2(fileName, numberOfCycles):
+
+def part2(fileName, numberOfCycles):
     monkeyList = importMonkeyListPt2(fileName)
     for i in range(numberOfCycles):
         for j in range(len(monkeyList)):
             monkeyList = processPt2(monkeyList[j], monkeyList)
+            # print(monkeyList[j].itemProcessCount)
+        # print()
     print(productOfHighest(2, monkeyList))
 
+
 # Main
-part1("11 Input.txt", 20)
+#part1("11 Input.txt", 20)
 part2("11 Input.txt", 10000)
 # 6 --> *3 --> 18
 # 18 --> +5 --> 23
