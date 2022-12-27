@@ -49,8 +49,6 @@ def convertToList(inputString: str, charPos: int = 1) -> tuple[list, int]:
     return outputList, charPos
 ###############
 
-#
-
 
 def isLeftListSmaller(list1: list, list2: list):
 
@@ -101,8 +99,6 @@ def part1():
         if isLeftListSmaller(pair[0], pair[1]):
             #print(pair, listOfPairs.index(pair)+1)
             correctPairs += listOfPairs.index(pair)+1
-        else:
-            print(pair, listOfPairs.index(pair)+1)
     print(correctPairs)
 
 
@@ -116,10 +112,9 @@ def part2():
                 break
         if item not in sortedListOfItems:
             sortedListOfItems.append(item)
-    print(sortedListOfItems)
     print((sortedListOfItems.index([[2]])+1)*(sortedListOfItems.index([[6]])+1))
 
 
 # Main
-# part1()
+part1()
 part2()
