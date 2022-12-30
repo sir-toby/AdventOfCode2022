@@ -20,17 +20,14 @@ def getCoordinates(rawCoordinates):
     return [xValue, yValue]
 
 
-def part1(sensorAndBeaconList, beaconList):
+def determineFreeSpacesPerRow(sensorAndBeaconList, row):
     yRow = []
-    row = 2000000
     for combination in sensorAndBeaconList:
         distance = getDistanceBetween(combination[0], combination[1])
         areaInYWhereNoBeacon = interferesWith(row, combination[0], distance)
         if not areaInYWhereNoBeacon == []:
             yRow = addToRow(yRow, areaInYWhereNoBeacon)
-    yRow = takeBeaconPositionsOut(yRow, beaconList, row)
-
-    print(yRow, sumOfFreeSpaces(yRow))
+    return yRow
 
 
 def takeBeaconPositionsOut(yRow, beaconList, row):
@@ -92,6 +89,43 @@ def sumOfFreeSpaces(yRow):
     return sum
 
 
+def hasSpaceIn(yRow, minX, maxX):
+    if len(yRow) == 2:
+        if yRow[0][1]+1 == yRow[1][0]-1:
+            gap = yRow[0][1]+1
+        elif yRow[1][0]+1 == yRow[0][1]-1:
+            gap = yRow[1][0]+1
+        else:
+            gap = -1
+            print('Error when determining gap')
+
+        if gap >= minX and gap <= maxX:
+            return gap
+        else:
+            return
+    else:
+        return
+
+
+def part1(sensorAndBeaconList, beaconList, row):
+    yRow = determineFreeSpacesPerRow(sensorAndBeaconList, row)
+    yRow = takeBeaconPositionsOut(yRow, beaconList, row)
+    print(yRow, sumOfFreeSpaces(yRow))
+
+
+def part2(sensorAndBeaconList, start, stop):
+    for row in range(start, stop+1):
+        yRow = determineFreeSpacesPerRow(sensorAndBeaconList, row)
+        if hasSpaceIn(yRow, start, stop):
+            print(yRow, row, row+hasSpaceIn(yRow, start, stop)*4000000)
+            break
+
+
 # Main
 sensorAndBeaconList, beaconList, sensorList = (importAndTransform("15 Input.txt"))
-part1(sensorAndBeaconList, beaconList)
+
+# Part1:
+part1(sensorAndBeaconList, beaconList, 2000000)
+
+# Part2:
+part2(sensorAndBeaconList, 0, 4000000)
